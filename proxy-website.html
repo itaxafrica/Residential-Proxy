@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Residential Proxies</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0a0a;
+    color: #ffffff;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    background: #111;
+    border-bottom: 1px solid #222;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo {
+    font-size: 18px;
+    font-weight: 700;
+    color: #00e676;
+    letter-spacing: 1px;
+  }
+
+  .clock-wrap { text-align: right; }
+
+  .clock-time {
+    font-size: 20px;
+    font-weight: 700;
+    color: #00e676;
+    font-variant-numeric: tabular-nums;
+    display: block;
+  }
+
+  .clock-date {
+    font-size: 11px;
+    color: #888;
+    display: block;
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(160deg, #0d1a0d 0%, #0a0a0a 60%);
+    padding: 48px 20px 40px;
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(0,230,118,0.1);
+    border: 1px solid rgba(0,230,118,0.3);
+    color: #00e676;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    padding: 5px 14px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+
+  .hero h1 span { color: #00e676; }
+
+  .hero p {
+    color: #aaa;
+    font-size: 15px;
+    margin-bottom: 28px;
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .stat {
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 8px;
+    padding: 14px 10px;
+    text-align: center;
+  }
+
+  .stat-n {
+    font-size: 22px;
+    font-weight: 800;
+    color: #00e676;
+    display: block;
+  }
+
+  .stat-l {
+    font-size: 10px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* SECTIONS */
+  section { padding: 40px 20px; border-bottom: 1px solid #1a1a1a; }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #00e676;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  section h2 {
+    font-size: 26px;
+    font-weight: 800;
+    margin-bottom: 20px;
+  }
+
+  /* WHAT IS */
+  .what-card {
+    background: #111;
+    border: 1px solid #222;
+    border-left: 3px solid #00e676;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 14px;
+  }
+
+  .what-card h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .what-card p {
+    font-size: 14px;
+    color: #aaa;
+    line-height: 1.7;
+  }
+
+  .what-card p strong { color: #00e676; font-weight: 600; }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .tag {
+    background: rgba(0,230,118,0.08);
+    border: 1px solid rgba(0,230,118,0.2);
+    color: #00e676;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* STEPS */
+  .steps { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .step-card {
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  .step-num {
+    font-size: 36px;
+    font-weight: 900;
+    color: rgba(0,230,118,0.15);
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+
+  .step-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #4fc3f7;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .step-card p { font-size: 13px; color: #888; }
+
+  /* PRICING */
+  .plan-card {
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 12px;
+    padding: 28px 22px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .plan-card.featured {
+    border-color: #00e676;
+    background: linear-gradient(160deg, rgba(0,230,118,0.06), #111);
+  }
+
+  .popular-tag {
+    position: absolute;
+    top: 16px; right: 16px;
+    background: #00e676;
+    color: #0a0a0a;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .plan-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+
+  .plan-price {
+    font-size: 56px;
+    font-weight: 900;
+    color: #00e676;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .plan-price sup {
+    font-size: 20px;
+    font-weight: 700;
+    color: rgba(0,230,118,0.6);
+    vertical-align: super;
+  }
+
+  .plan-validity {
+    display: inline-block;
+    background: rgba(0,230,118,0.1);
+    border: 1px solid rgba(0,230,118,0.25);
+    color: #00e676;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin: 12px 0 18px;
+  }
+
+  .plan-features {
+    list-style: none;
+    margin-bottom: 22px;
+  }
+
+  .plan-features li {
+    font-size: 14px;
+    color: #aaa;
+    padding: 8px 0;
+    border-bottom: 1px solid #1a1a1a;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .plan-features li::before {
+    content: '✓';
+    color: #00e676;
+    font-weight: 700;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  .buy-btn {
+    width: 100%;
+    background: #00e676;
+    color: #0a0a0a;
+    font-size: 16px;
+    font-weight: 800;
+    padding: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  .buy-btn:active { transform: scale(0.98); }
+  .buy-btn:hover { background: #fff; }
+
+  /* PAYMENT SECTION */
+  .mpesa-bar {
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 12px;
+    padding: 24px 20px;
+    text-align: center;
+  }
+
+  .mpesa-logo-text {
+    font-size: 40px;
+    font-weight: 900;
+    color: #00e676;
+    letter-spacing: 3px;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .mpesa-bar p { font-size: 14px; color: #888; }
+
+  /* FOOTER */
+  footer {
+    padding: 30px 20px;
+    text-align: center;
+    font-size: 12px;
+    color: #555;
+    border-top: 1px solid #1a1a1a;
+  }
+
+  /* MODAL OVERLAY */
+  .overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 999;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .overlay.active { display: flex; }
+
+  /* MODAL SHEET */
+  .modal {
+    background: #111;
+    border-top: 3px solid #00e676;
+    border-radius: 20px 20px 0 0;
+    width: 100%;
+    max-width: 500px;
+    padding: 32px 24px 40px;
+    animation: slideUp 0.3s ease;
+  }
+
+  @keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+
+  .modal-handle {
+    width: 40px; height: 4px;
+    background: #333;
+    border-radius: 2px;
+    margin: 0 auto 24px;
+  }
+
+  .modal-close {
+    float: right;
+    background: #1a1a1a;
+    border: none;
+    color: #888;
+    font-size: 18px;
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    cursor: pointer;
+    line-height: 34px;
+    text-align: center;
+  }
+
+  /* Payment steps inside modal */
+  .pay-step {
+    background: #0a0a0a;
+    border: 1px solid #222;
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .pay-step-num {
+    width: 36px; height: 36px;
+    background: rgba(0,230,118,0.1);
+    border: 1px solid rgba(0,230,118,0.3);
+    border-radius: 50%;
+    color: #00e676;
+    font-size: 15px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .pay-step-info h4 { font-size: 14px; font-weight: 700; margin-bottom: 3px; }
+  .pay-step-info p { font-size: 13px; color: #888; }
+
+  .copy-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 6px;
+  }
+
+  .copy-value {
+    font-size: 20px;
+    font-weight: 900;
+    color: #00e676;
+    letter-spacing: 2px;
+  }
+
+  .copy-btn {
+    background: rgba(0,230,118,0.1);
+    border: 1px solid rgba(0,230,118,0.3);
+    color: #00e676;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+
+  .copy-btn:active { background: rgba(0,230,118,0.25); }
+
+  .modal-open-btn {
+    width: 100%;
+    background: #00e676;
+    color: #0a0a0a;
+    font-size: 17px;
+    font-weight: 800;
+    padding: 18px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 8px;
+    letter-spacing: 0.5px;
+    transition: background 0.2s;
+  }
+
+  .modal-open-btn:hover { background: #fff; }
+
+  .modal-plan-header {
+    margin-bottom: 22px;
+    overflow: hidden;
+  }
+
+  .modal-plan-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+  }
+
+  .modal-plan-price {
+    font-size: 52px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1;
+  }
+
+  .modal-plan-price sup {
+    font-size: 20px;
+    color: #888;
+  }
+
+  .modal-plan-validity {
+    font-size: 13px;
+    color: #00e676;
+    font-weight: 600;
+    margin-top: 4px;
+  }
+
+  /* Copied toast */
+  .toast {
+    position: fixed;
+    bottom: 80px; left: 50%;
+    transform: translateX(-50%);
+    background: #00e676;
+    color: #0a0a0a;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 10px 24px;
+    border-radius: 30px;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
+  }
+
+  .toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Residential<br>Proxy</div>
+  <div class="clock-wrap">
+    <span class="clock-time" id="clock">00:00:00</span>
+    <span class="clock-date" id="clock-date">Loading...</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">● Premium Service</div>
+  <h1>Browse The Web<br><span>Invisibly.</span></h1>
+  <p>Real home IPs — undetectable, instant setup, M-Pesa payments.</p>
+  <div class="hero-stats">
+    <div class="stat"><span class="stat-n">99.9%</span><span class="stat-l">Uptime</span></div>
+    <div class="stat"><span class="stat-n">3</span><span class="stat-l">Plans</span></div>
+    <div class="stat"><span class="stat-n">24/7</span><span class="stat-l">Support</span></div>
+    <div class="stat"><span class="stat-n">100%</span><span class="stat-l">Anonymous</span></div>
+  </div>
+</div>
+
+<!-- WHAT IS A PROXY -->
+<section>
+  <div class="section-label">What is a Proxy?</div>
+  <h2>Your Digital Shield</h2>
+
+  <div class="what-card">
+    <h3>🛡️ What is a Residential Proxy?</h3>
+    <p>A <strong>residential proxy</strong> is a real IP address assigned by an ISP to a real home. Websites see a <strong>legit household IP</strong> — not a server — making it impossible to detect or block you.</p>
+    <div class="tags">
+      <span class="tag">Web Scraping</span>
+      <span class="tag">Geo-Bypass</span>
+      <span class="tag">Sneaker Bots</span>
+      <span class="tag">Ad Verification</span>
+      <span class="tag">Anonymity</span>
+    </div>
+  </div>
+
+  <div class="what-card">
+    <h3>⚡ Why Residential?</h3>
+    <p>Unlike cheap datacenter proxies, residential IPs come from <strong>real devices on real networks</strong>. They bypass CAPTCHAs, geo-blocks, and bot detection that would instantly flag anything else.</p>
+  </div>
+</section>
+
+<!-- HOW TO USE -->
+<section>
+  <div class="section-label">Setup Guide</div>
+  <h2>How to Get Started</h2>
+  <div class="steps">
+    <div class="step-card">
+      <div class="step-num">01</div>
+      <h4>Pick a Plan</h4>
+      <p>Choose the package that fits your needs.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">02</div>
+      <h4>Pay M-Pesa</h4>
+      <p>Tap Buy, send payment to the number shown.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">03</div>
+      <h4>Get Details</h4>
+      <p>Receive host, port, username & password.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">04</div>
+      <h4>Go Live</h4>
+      <p>Plug in and you're anonymous in seconds.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section>
+  <div class="section-label">Pricing</div>
+  <h2>Choose Your Plan</h2>
+
+  <div class="plan-card">
+    <div class="plan-name">Starter</div>
+    <div class="plan-price"><sup>KES </sup>300</div>
+    <div class="plan-validity">⏱ Valid for 2 Weeks</div>
+    <ul class="plan-features">
+      <li>Real Residential IPs</li>
+      <li>HTTP &amp; HTTPS</li>
+      <li>High Anonymity</li>
+      <li>Instant Delivery</li>
+      <li>24/7 Support</li>
+    </ul>
+    <button class="buy-btn" onclick="openModal('Starter Plan','300','⏱ Valid for 2 Weeks')">Buy Now — KES 300</button>
+  </div>
+
+  <div class="plan-card featured">
+    <div class="popular-tag">Popular</div>
+    <div class="plan-name">Standard</div>
+    <div class="plan-price"><sup>KES </sup>950</div>
+    <div class="plan-validity">📦 5GB — Until Data Runs Out</div>
+    <ul class="plan-features">
+      <li>Premium Residential IPs</li>
+      <li>SOCKS5 + HTTP</li>
+      <li>Geo-Targeting</li>
+      <li>High Bandwidth</li>
+      <li>Priority Support</li>
+    </ul>
+    <button class="buy-btn" onclick="openModal('Standard Plan','950','📦 5GB — Until Data Runs Out')">Buy Now — KES 950</button>
+  </div>
+
+  <div class="plan-card">
+    <div class="plan-name">Elite</div>
+    <div class="plan-price"><sup>KES </sup>2500</div>
+    <div class="plan-validity">🚀 15GB — Until Data Runs Out</div>
+    <ul class="plan-features">
+      <li>Elite Dedicated IPs</li>
+      <li>All Protocols</li>
+      <li>Multi-Country Access</li>
+      <li>Private IP Pool</li>
+      <li>VIP 24/7 Support</li>
+    </ul>
+    <button class="buy-btn" onclick="openModal('Elite Plan','2500','🚀 15GB — Until Data Runs Out')">Buy Now — KES 2500</button>
+  </div>
+</section>
+
+<!-- MPESA -->
+<section>
+  <div class="section-label">Payment</div>
+  <h2>We Accept M-Pesa Only</h2>
+  <div class="mpesa-bar">
+    <span class="mpesa-logo-text">M-PESA</span>
+    <p>Fast · Secure · Instant Confirmation<br>Pay directly from your phone with no hassle.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  © 2025 Residential Proxy · All Rights Reserved · M-Pesa Payments Only
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast">Copied!</div>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <button class="modal-close" onclick="closeModal()">✕</button>
+
+    <div class="modal-plan-header">
+      <div class="modal-plan-name" id="m-name">Starter Plan</div>
+      <div class="modal-plan-price"><sup>KES </sup><span id="m-price">300</span></div>
+      <div class="modal-plan-validity" id="m-validity">⏱ Valid for 2 Weeks</div>
+    </div>
+
+    <!-- Step 1: Send to number -->
+    <div class="pay-step">
+      <div class="pay-step-num">1</div>
+      <div class="pay-step-info">
+        <h4>Open M-Pesa → Send Money</h4>
+        <p>Send to this number:</p>
+        <div class="copy-row">
+          <span class="copy-value">0117431139</span>
+          <button class="copy-btn" onclick="copyText('0117431139')">Copy</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: Amount -->
+    <div class="pay-step">
+      <div class="pay-step-num">2</div>
+      <div class="pay-step-info">
+        <h4>Enter the Amount</h4>
+        <p>Send exactly:</p>
+        <div class="copy-row">
+          <span class="copy-value" id="m-amount-display">KES 300</span>
+          <button class="copy-btn" onclick="copyText(document.getElementById('m-price').textContent)">Copy</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3: Name confirmation -->
+    <div class="pay-step">
+      <div class="pay-step-num">3</div>
+      <div class="pay-step-info">
+        <h4>Confirm Name</h4>
+        <p>Name should show: <strong style="color:#00e676">Residential Proxy</strong><br>Enter your M-Pesa PIN and confirm.</p>
+      </div>
+    </div>
+
+    <button class="modal-open-btn" onclick="openMpesa()">📱 Open M-Pesa App</button>
+  </div>
+</div>
+
+<script>
+// Clock
+function tick() {
+  const now = new Date();
+  const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const h = String(now.getHours()).padStart(2,'0');
+  const m = String(now.getMinutes()).padStart(2,'0');
+  const s = String(now.getSeconds()).padStart(2,'0');
+  document.getElementById('clock').textContent = h+':'+m+':'+s;
+  document.getElementById('clock-date').textContent = days[now.getDay()]+', '+months[now.getMonth()]+' '+now.getDate()+' '+now.getFullYear();
+}
+tick(); setInterval(tick, 1000);
+
+// Modal
+function openModal(name, price, validity) {
+  document.getElementById('m-name').textContent = name;
+  document.getElementById('m-price').textContent = price;
+  document.getElementById('m-validity').textContent = validity;
+  document.getElementById('m-amount-display').textContent = 'KES ' + price;
+  document.getElementById('overlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('overlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function openMpesa() {
+  // Opens M-Pesa send money on Safaricom sim
+  window.location.href = 'safaricom://sendmoney?phone=0117431139';
+  setTimeout(() => {
+    window.location.href = 'https://www.safaricom.co.ke/personal/m-pesa';
+  }, 1500);
+}
+
+function copyText(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 1800);
+  });
+}
+
+document.getElementById('overlay').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+</script>
+</body>
+</html>
